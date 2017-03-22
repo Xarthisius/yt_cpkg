@@ -1,12 +1,11 @@
 package:
   name: yt
-  version: 3.5.dev0
 
 source:
   hg_url: http://bitbucket.org/yt_analysis/yt
+  hg_tag: yt
 
 build:
-  script: env EMBREE_DIR=$PREFIX python setup.py install --single-version-externally-managed --record=record.txt  # [not win]
   entry_points:
     - yt = yt.utilities.command_line:run_main
 
@@ -15,12 +14,15 @@ requirements:
     - cython >=0.24.0
     - numpy x.x
     - python
+    - pyembree
     - setuptools >=19.6 
   run:
     - h5py
     - ipython
     - matplotlib
+    - netcdf4
     - numpy x.x
+    - pyembree
     - python
     - setuptools >=19.6
     - sympy
