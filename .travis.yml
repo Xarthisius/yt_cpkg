@@ -4,7 +4,7 @@
 language: generic
 
 os: osx
-osx_image: beta-xcode6.1
+osx_image: xcode6.4
 
 env:
   matrix:
@@ -31,6 +31,9 @@ install:
       conda config --add channels conda-forge
       conda config --set show_channel_urls true
       conda install --yes --quiet conda-forge-build-setup
+      export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
+      conda create -y -n py27 python=2.7 mercurial
+      ln -s ${CONDA_DIR}/envs/py27/bin/hg ${CONDA_DIR}/bin
       source run_conda_forge_build_setup
 
 script:
