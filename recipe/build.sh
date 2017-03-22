@@ -8,10 +8,8 @@ if [ "$(uname)" == "Darwin" ]; then
   export LDFLAGS="-Wl,-headerpad_max_install_names"
 fi
 
-$PYTHON setup.py install --single-version-externally-managed --record=record.txt
-cp scripts/* $PREFIX/bin/
-
-pip install python-hglib
+#$PYTHON setup.py install --single-version-externally-managed --record=record.txt
+#cp scripts/* $PREFIX/bin/
 
 sed -n 's/^__version__ = "\(.*\)"$/\1/p' ${SRC_DIR}/yt/__init__.py > __conda_version__.txt
 sed -i -e 's/-/_/g' __conda_version__.txt

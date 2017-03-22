@@ -30,6 +30,7 @@ install:
       source /Users/travis/miniconda3/bin/activate root
       conda config --add channels conda-forge
       conda config --set show_channel_urls true
+      pip install python-hglib
       conda install --yes --quiet conda-forge-build-setup
       export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
       conda create -y -n py27 python=2.7 mercurial
