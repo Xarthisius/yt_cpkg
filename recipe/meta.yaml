@@ -1,0 +1,39 @@
+package:
+  name: yt
+  version: 3.5.dev0
+
+source:
+  hg_url: http://bitbucket.org/yt_analysis/yt
+
+build:
+  script: env EMBREE_DIR=$PREFIX python setup.py install --single-version-externally-managed --record=record.txt  # [not win]
+  entry_points:
+    - yt = yt.utilities.command_line:run_main
+
+requirements:
+  build:
+    - cython >=0.24.0
+    - numpy x.x
+    - python
+    - setuptools >=19.6 
+  run:
+    - h5py
+    - ipython
+    - matplotlib
+    - numpy x.x
+    - python
+    - setuptools >=19.6
+    - sympy
+
+test:
+  requires:
+    - nose
+  commands:
+    - yt -h
+  imports:
+    - yt
+
+about:
+  home: http://yt-project.org/
+  license: BSD 3-clause
+  summary: Analysis and visualization toolkit for volumetric data
