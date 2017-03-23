@@ -8,10 +8,15 @@ osx_image: xcode7.3
 
 env:
   matrix:
+    - CONDA_NPY=110  CONDA_PY=27
+    - CONDA_NPY=111  CONDA_PY=27
+    - CONDA_NPY=110  CONDA_PY=35
+    - CONDA_NPY=111  CONDA_PY=35
+    - CONDA_NPY=110  CONDA_PY=36
     - CONDA_NPY=111  CONDA_PY=36
   global:
     # The BINSTAR_TOKEN secure variable. This is defined canonically in conda-forge.yml.
-    - secure: "Jvx+f6v52HmqU2KH5LZCwdiW1cD2zIn2ByXFDoh2CoDTsN2lxUJe7u9tFeGMuvanrGVQ7XRZKagFQkyltZXnYIRZ87yhrD4yEQjFSuyWJevxdyIcqY0bhXlzHwSf/w9k+pI/AndTiM2K4sxCTj3fTUggLNWvWt9kFLl/ix8HQQmv6NWxnJrNSDYo96qjBrQdOibzK6EI3F6vpfW+rdKXjEJBCcmSHcmZRW32BM3Y/NmORzkV/htiuIvANPmiDKogfQNT3CEJKdDtvtWmCTBfdjFiYiMhfLae23pLE1b8QSs0mEeViFm7u7e0cpyJGEFYrhFTKVWV8SKli1hDGetS/fAMC508pgz9hZVpKJ79Oin4c5mIYLMuhiUn36B3pNrWCrKtr3+KFOrkw41hiTuywYy4r0uphvMjYfbv+MoMSasBcaczARLhkLxLpkHzo0hgFmfigq4vskStSkKcMKsCFuF9P394iIwDNmVougMGk4ZIQ0GXA2YAS7P9m5iC6q6NVJd0+PNTaTwJJucBA2YwSFgcFj9+r7SbD9kSxSfFOt8OK6JSieH17wLQgPLc1oZBD/goszswV7v2jvNLm5ZNlQEkBiqNKhan9oGzpH9HQa3aHDa0EsO/L15+KasqzK5bZun7L2FoqT0ipibOCRqUw68BsLP9KB7dFD4CJlvRBkk="
+    - secure: "Lw7akVy4G9nAfd67pS/hvpzM1Z2ZcBU+3HNkyKA8WxwKMLg9XDlVVDXKuaXRTKVVGScTIp32XtLpm/Fq7EA7NFpq4+I/HmOLvNfVAfE7LqucME/a+Td8BJZgKO2L6Nxw215Kov9y+dnF+ToYJq6mTBc1SDe0Plwp3TYy4oZIMP89WkO9ItkhzflygFhQEe9JBJZHWz/7Ia0DU2JzjI7rB50ad7MLpzppc2/qFtOsQzfwmb7WwZxl6p0rTep8wIrJRtc5gQO1RjLYG7UHP9+rXZUca74wup3QzIR0jr94DQJiSSsgtLgQ13cDuNEeAX5t2SHGWt49tDNVpxAKB/qImNpUhNaJ2ZZJVfhBX6aXNi6MFztCaJlwSU8vzvJP6VT7Wh42I8dDVG6DhJzpbAFUYuYpzVn0PZJexSaEFF1+MNvfrOo8KpqjQ9b26lLZdox2JhiiNeshMKPTXYaQVBv2Jj3VDC/3Y6NIbu5FlqwxMM6W0WpDr6pRx3k3wwhrmnGSmMAFmPUO58tSE6K5MXPg9WXbo2uW4nry4RPkvsntyqSGdlaU8lOaF68Gz0EiLz3TcpqO77fh2M7xK0ME9pKYfeJTKFPz1T1nuq6MpeAdLUnieA9eErMDqFnvBw8fIKJa0snRn+sr4pBpOFc9zVoXYtXwu8m2soEWSy6WtxMwoGg=" 
 
 
 before_install:
@@ -38,5 +43,4 @@ install:
 
 script:
   - conda build ./recipe
-
-  # - upload_or_check_non_existence ./recipe conda-forge --channel=main
+  - upload_or_check_non_existence ./recipe xarthisius --channel=main
