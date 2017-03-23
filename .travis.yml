@@ -1,46 +1,35 @@
-# This file was generated automatically from conda-smithy. To update this configuration,
-# update the conda-forge.yml and/or the recipe/meta.yaml.
-
 language: generic
-
 os: osx
 osx_image: xcode7.3
-
 env:
   matrix:
-    - CONDA_NPY=110  CONDA_PY=27
-    - CONDA_NPY=111  CONDA_PY=27
-    - CONDA_NPY=110  CONDA_PY=35
-    - CONDA_NPY=111  CONDA_PY=35
-    - CONDA_NPY=110  CONDA_PY=36
-    - CONDA_NPY=111  CONDA_PY=36
+  - CONDA_NPY=110  CONDA_PY=27
+  - CONDA_NPY=111  CONDA_PY=27
+  - CONDA_NPY=110  CONDA_PY=35
+  - CONDA_NPY=111  CONDA_PY=35
+  - CONDA_NPY=110  CONDA_PY=36
+  - CONDA_NPY=111  CONDA_PY=36
   global:
-    # The BINSTAR_TOKEN secure variable. This is defined canonically in conda-forge.yml.
-    - secure: "Lw7akVy4G9nAfd67pS/hvpzM1Z2ZcBU+3HNkyKA8WxwKMLg9XDlVVDXKuaXRTKVVGScTIp32XtLpm/Fq7EA7NFpq4+I/HmOLvNfVAfE7LqucME/a+Td8BJZgKO2L6Nxw215Kov9y+dnF+ToYJq6mTBc1SDe0Plwp3TYy4oZIMP89WkO9ItkhzflygFhQEe9JBJZHWz/7Ia0DU2JzjI7rB50ad7MLpzppc2/qFtOsQzfwmb7WwZxl6p0rTep8wIrJRtc5gQO1RjLYG7UHP9+rXZUca74wup3QzIR0jr94DQJiSSsgtLgQ13cDuNEeAX5t2SHGWt49tDNVpxAKB/qImNpUhNaJ2ZZJVfhBX6aXNi6MFztCaJlwSU8vzvJP6VT7Wh42I8dDVG6DhJzpbAFUYuYpzVn0PZJexSaEFF1+MNvfrOo8KpqjQ9b26lLZdox2JhiiNeshMKPTXYaQVBv2Jj3VDC/3Y6NIbu5FlqwxMM6W0WpDr6pRx3k3wwhrmnGSmMAFmPUO58tSE6K5MXPg9WXbo2uW4nry4RPkvsntyqSGdlaU8lOaF68Gz0EiLz3TcpqO77fh2M7xK0ME9pKYfeJTKFPz1T1nuq6MpeAdLUnieA9eErMDqFnvBw8fIKJa0snRn+sr4pBpOFc9zVoXYtXwu8m2soEWSy6WtxMwoGg=" 
-
-
+  - secure: I1TaOdykMTeTNOE1wXVheiMqcMpealo7VQ+o7Vc3xAiJs2wuDyUfEZ91nk02S99Y68mBIY1XkYJx5WyyV8k7nTmgH1r1Vs/z97LXYfoZvCuwC6Ht9EiPes+b7huhtkPdkoZ3tbshnzJyxQlOy8k60URTq1Aexj2j4JLiDWwInCK6Zv0eqlnqTtCtsdiMCS4JDD9sU116EvKiGVdxQciLL9LgrPn3RVqt+arEad8GJNlvN25Kvr+r6ApT9VapIEummJCS6rUqdnM6DJr4UeRLseGtv8Mv4VaoLZJAFhKJPpXpoQJoGNr6BTRajDaZNeR2oarEray5rFzMkxmtC2I9oqZKqRrpwzagSjYpApqcUygD4rwgDyag2pottJffL3PVelaoED1fR9q6bG9m7saTSFvqEnuGlJtZyfAellDaMrwoi6nWrftde1dbjFo77jScIDM7wHqz+vH/sSdf5Cb0CBFh8FFG6bUwEmErFUSSx9DnVaebCobf/HjvO8QF/V2vaEVgkMVFwnXkvhJnpEGUgG0BtzfdIltvnW/GgNCTNr/YlpDYxo+dn45XAMrs/+MyiwM0wciHXuIJGKv6bcfYqboUXgvkmeEgKt5qGHjeXWTZqh+pZgR7ZFjMyOtd7tmr87hTzyZ8z/w8Hxw0mA2wJplWSvEuiw9Vu4fbQcrZ3Z4=
 before_install:
-    # Remove homebrew.
-    - brew remove --force $(brew list)
-    - brew cleanup -s
-    - rm -rf $(brew --cache)
-
+- brew remove --force $(brew list)
+- brew cleanup -s
+- rm -rf $(brew --cache)
 install:
-    - |
-      MINICONDA_URL="https://repo.continuum.io/miniconda"
-      MINICONDA_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
-      curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
-      bash $MINICONDA_FILE -b
+- |
+  MINICONDA_URL="https://repo.continuum.io/miniconda"
+  MINICONDA_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
+  curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
+  bash $MINICONDA_FILE -b
 
-      source /Users/travis/miniconda3/bin/activate root
-      conda config --add channels conda-forge
-      conda config --set show_channel_urls true
-      conda install --yes --quiet conda-forge-build-setup
-      export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
-      conda create -y -n py27 python=2.7 mercurial
-      ln -s ${CONDA_DIR}/envs/py27/bin/hg ${CONDA_DIR}/bin
-      source run_conda_forge_build_setup
-
+  source /Users/travis/miniconda3/bin/activate root
+  conda config --add channels conda-forge
+  conda config --set show_channel_urls true
+  conda install --yes --quiet conda-forge-build-setup
+  export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
+  conda create -y -n py27 python=2.7 mercurial
+  ln -s ${CONDA_DIR}/envs/py27/bin/hg ${CONDA_DIR}/bin
+  source run_conda_forge_build_setup
 script:
-  - conda build ./recipe
-  - upload_or_check_non_existence ./recipe xarthisius --channel=main
+- conda build ./recipe
+- upload_or_check_non_existence ./recipe xarthisius --channel=main
