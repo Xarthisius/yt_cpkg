@@ -42,6 +42,8 @@ conda install --yes --quiet conda-forge-build-setup
 export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
 conda create -y -n py27 python=2.7 mercurial
 ln -s ${CONDA_DIR}/envs/py27/bin/hg ${CONDA_DIR}/bin
+ln -s ${CONDA_DIR}/envs/py27/bin/hg /usr/bin/hg
+hash -r
 source run_conda_forge_build_setup
 
 # Embarking on 6 case(s).
