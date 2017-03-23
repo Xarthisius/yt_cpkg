@@ -19,18 +19,20 @@ requirements:
     - cython >=0.24.0
     - numpy x.x
     - python
-    - pyembree
+    - pyembree  # [not win]
     - setuptools >=19.6 
+    - gcc  # [linux]
   run:
     - h5py
     - ipython
     - matplotlib
     - netcdf4
     - numpy x.x
-    - pyembree
+    - pyembree  # [not win]
     - python
     - setuptools >=19.6
     - sympy
+    - libgcc  # [linux]
 
 test:
   requires:
