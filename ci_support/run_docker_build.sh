@@ -24,6 +24,17 @@ show_channel_urls: true
 CONDARC
 )
 
+mercurial_config=$(cat <<MEOF
+[mercurial.selenic.com]
+name=mercurial.selenic.com
+baseurl=https://www.mercurial-scm.org/release/centos6
+enabled=1
+# Temporary until we get a serious signing scheme in place,
+# check https://www.mercurial-scm.org/wiki/Download again
+gpgcheck=0
+MEOF
+)
+
 cat << EOF | docker run -i \
                         -v ${RECIPE_ROOT}:/recipe_root \
                         -v ${FEEDSTOCK_ROOT}:/feedstock_root \
@@ -35,15 +46,14 @@ export BINSTAR_TOKEN=${BINSTAR_TOKEN}
 export PYTHONUNBUFFERED=1
 
 echo "$config" > ~/.condarc
+echo "$mercurial_config" > /etc/yum.repos.d/mercurial.selenic.com.repo
+yum install -y mercurial
 # A lock sometimes occurs with incomplete builds. The lock file is stored in build_artefacts.
 conda clean --lock
 
+conda config --set anaconda_upload yes
+anaconda config --set token ${BINSTAR_TOKEN}
 conda install --yes --quiet conda-forge-build-setup
-export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
-conda create -y -n py27 python=2.7 mercurial
-ln -s ${CONDA_DIR}/envs/py27/bin/hg ${CONDA_DIR}/bin
-ln -s ${CONDA_DIR}/envs/py27/bin/hg /usr/bin/hg
-hash -r
 source run_conda_forge_build_setup
 
 # Embarking on 6 case(s).
@@ -52,40 +62,40 @@ source run_conda_forge_build_setup
     export CONDA_PY=27
     set +x
     conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
+    # upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
 
     set -x
     export CONDA_NPY=111
     export CONDA_PY=27
     set +x
     conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
+    # upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
 
     set -x
     export CONDA_NPY=110
     export CONDA_PY=35
     set +x
     conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
+    # upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
 
     set -x
     export CONDA_NPY=111
     export CONDA_PY=35
     set +x
     conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
+    # upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
 
     set -x
     export CONDA_NPY=110
     export CONDA_PY=36
     set +x
     conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
+    # upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
 
     set -x
     export CONDA_NPY=111
     export CONDA_PY=36
     set +x
     conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
+    # upload_or_check_non_existence /recipe_root xarthisius --channel=main || exit 1
 EOF

@@ -27,8 +27,7 @@ install:
   conda config --set show_channel_urls true
   conda config --set anaconda_upload yes
   conda install --yes --quiet conda-forge-build-setup
-  conda config --set anaconda_upload yes
-  anaconda config --set token "${BINSTAR_TOKEN}"
+  anaconda config --set token ${BINSTAR_TOKEN}
   export CONDA_DIR=$(python -c 'import sys; print(sys.executable.split("/bin/python")[0])')
   conda create -y -n py27 python=2.7 mercurial
   ln -s ${CONDA_DIR}/envs/py27/bin/hg ${CONDA_DIR}/bin
