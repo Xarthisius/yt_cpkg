@@ -8,9 +8,6 @@ if [ "$(uname)" == "Darwin" ]; then
   export LDFLAGS="-Wl,-headerpad_max_install_names"
 fi
 
-#$PYTHON setup.py install --single-version-externally-managed --record=record.txt
-#cp scripts/* $PREFIX/bin/
-
 sed -n 's/^__version__ = "\(.*\)"$/\1/p' ${SRC_DIR}/yt/__init__.py > __conda_version__.txt
 sed -i -e 's/-/_/g' __conda_version__.txt
 
@@ -33,7 +30,7 @@ last_before_release = sp.check_output(cmd, shell=True).decode('utf-8')
 cmd = 'hg log -q -r "first(descendants({0}) and branch(yt) and not {0})"'.format(
     last_before_release)
 last_major_release = sp.check_output(cmd, shell=True).decode('utf8').strip('\n')
-cmd = 'hg log -r "head() and branch(yt) and not experimental" -q'
+cmd = 'hg log -r "head() and branch(yt)" -q'
 last_dev = sp.check_output(cmd, shell=True).decode('utf8').strip('\n').split('\n')
 first = last_major_release.split(':')[-1]
 last = last_dev[-1].split(':')[-1]
@@ -47,3 +44,7 @@ EOF
 ) > gen_buildnum.py
 
 $PYTHON gen_buildnum.py
+
+# Build yt
+$PYTHON setup.py install --single-version-externally-managed --record=record.txt
+cp scripts/* $PREFIX/bin/
