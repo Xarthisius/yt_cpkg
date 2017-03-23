@@ -53,6 +53,7 @@ conda clean --lock
 
 conda config --set anaconda_upload yes
 anaconda config --set token ${BINSTAR_TOKEN}
+anaconda login --username ${BINSTAR_USER} --password ${BINSTAR_PASS}
 conda install --yes --quiet conda-forge-build-setup
 source run_conda_forge_build_setup
 
