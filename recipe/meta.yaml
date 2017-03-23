@@ -1,11 +1,16 @@
+{% set data = load_setup_py_data() %}
+
 package:
   name: yt
+  version: {{ data.get('version') }}
 
 source:
   hg_url: http://bitbucket.org/yt_analysis/yt
   hg_tag: yt
 
 build:
+  number: {{ HG_NUM_ID }}
+  script: env EMBREE_DIR=$PREFIX CFLAGS="$CFLAGS -w -fno-strict-aliasing" python setup.py install --single-version-externally-managed --record=record.txt -q | sed -e 's/placehold_//g'  # [not win]
   entry_points:
     - yt = yt.utilities.command_line:run_main
 
