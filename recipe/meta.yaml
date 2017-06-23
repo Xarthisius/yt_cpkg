@@ -6,7 +6,7 @@ package:
 
 source:
   hg_url: http://bitbucket.org/yt_analysis/yt
-  hg_tag: yt
+  hg_tag: master
 
 build:
   number: {{ HG_NUM_ID }}
